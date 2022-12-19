@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package server;
+option go_package = "./serverpb";
+
+service Server {
+  rpc Check(CheckRequest) returns(CheckResponse);
+}
+
+message CheckRequest {}
+
+message CheckResponse {
+  string status = 1;
+}

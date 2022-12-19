@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package limiter;
+option go_package = "./limiterpb";
+
+service Limiter {
+  rpc Limit(LimitRequest) returns(LimitResponse);
+  rpc LimitStatus(LimitStatusRequest) returns(LimitStatusResponse);
+}
+
+message LimitRequest {
+  string domain = 1;
+  string key = 2;
+  uint32 max_hits_per_window = 3;
+  uint32 window_expiration_seconds = 4;
+}
+
+message LimitResponse {
+  bool limit = 1;
+}
+
+message LimitStatusRequest {}
+
+message LimitStatusResponse {
+  uint64 total = 1;
+  uint64 error = 2;
+  uint64 limit_true = 3;
+  uint64 limit_false = 4;
+}
